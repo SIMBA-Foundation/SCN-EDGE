@@ -38,6 +38,7 @@ password: ******
 ```
 
 * Set up nfs to open the following directory
+
 ```shell
 # Please note that the ip segment needs to be set to be an intranet ip segment of your own worker, which needs to be correspondent to the prefix /var/k8s_volumes
 /var/k8s_volumes/openwhisk xxx.xxx.xxx.0/24(rw,no_subtree_check,no_root_squash)
@@ -64,5 +65,46 @@ wsk -i action update user_create user_create.py --kind python:3 --web false
 
 ## Configure docker registry trust 
 
-TODO ...
+* Currently we are using self-build docker image registry with self-signed certification, which needs to configure trust on the request docker
+* Set up the following directory, replace ${host_ip_or_hostname} with self-signed registry ip or domain name.
+* The current intranet address for the self-signed docker registry is internal_ip, address for public network is public_ip
 
+```shell
+/etc/docker/certs.d/public_ip
+```
+
+* Put ca.crt from self-signed docker registry into this directory. Please use your self_docker_registry_ca.crt from the attachment and remember to rename as ca.crt (contact system administrator to get the get the ca.crt)
+
+##Restart docker
+* Restart docker
+
+```shell
+systemctl restart docker
+```
+
+* Test. To verify if the configuration is successful, we do docker login on every machine
+
+```shell
+docker login public_ip
+username: XXX
+password: ******
+```
+
+## Start configuring the secret used by namespace & pull image
+### Create namespace
+* For now, we just use one namespace, which is openwhisk, in the edge node system
+* Related namespace has been created during the process of openwhisk installation above. No more operation is needed here.
+ 
+### Configure the pull secret of namespace
+* Execute the following command
+
+```shell
+kubectl -nopenwhisk create secret docker-registry qingzhou-registry \
+    --docker-server=public_ip \
+    --docker-username=xxx \
+    --docker-password=******
+```
+
+## Start installation FDN
+
+TODO ...
