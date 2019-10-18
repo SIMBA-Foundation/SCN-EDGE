@@ -31,7 +31,7 @@ module.exports = {
   devServer: {
     proxy: {
       '/api':{
-        target:'https://gateway.qzcloud.com',
+        target:'',// api domain
         changeOrigin: true
       }
     }
