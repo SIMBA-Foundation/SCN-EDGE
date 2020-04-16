@@ -1,0 +1,20 @@
+{
+  "name": "SCN-EDGE",
+  "version": "1.0.0",
+  "description": "## Content Introduce how to deploy SCN edge node system by steps",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SIMBA-Foundation/SCN-EDGE.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SIMBA-Foundation/SCN-EDGE/issues"
+  },
+  "homepage": "https://github.com/SIMBA-Foundation/SCN-EDGE#readme"
+}
